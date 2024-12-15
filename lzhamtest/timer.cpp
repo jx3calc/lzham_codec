@@ -7,7 +7,7 @@
 
 #include "timer.h"
 
-#if defined(WIN32)
+#if defined(_WIN32)
 #include <windows.h>
 #elif defined(_XBOX)
 #include <xtl.h>
@@ -17,7 +17,7 @@ unsigned long long timer::g_init_ticks;
 unsigned long long timer::g_freq;
 double timer::g_inv_freq;
 
-#if defined(WIN32) || defined(_XBOX)
+#if defined(_WIN32) || defined(_XBOX)
 inline void query_counter(timer_ticks *pTicks)
 {
    QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(pTicks));

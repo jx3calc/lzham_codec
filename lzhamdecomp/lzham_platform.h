@@ -10,7 +10,7 @@ void lzham_output_debug_string(const char* p);
 void lzham_assert(const char* pExp, const char* pFile, unsigned line);
 void lzham_fail(const char* pExp, const char* pFile, unsigned line);
 
-#ifdef WIN32
+#ifdef _WIN32
    #define LZHAM_BREAKPOINT DebuggerBreak();
    #define LZHAM_BUILTIN_EXPECT(c, v) c
 #elif defined(__GNUC__)
@@ -22,9 +22,15 @@ void lzham_fail(const char* pExp, const char* pFile, unsigned line);
 #endif
 
 #if defined(__GNUC__) && LZHAM_PLATFORM_PC
-extern __inline__ __attribute__((__always_inline__,__gnu_inline__)) void lzham_yield_processor()
-{
-   __asm__ __volatile__("pause");
+extern __inline__ __attribute__((__always_inline__, __gnu_inline__)) void
+lzham_yield_processor() {
+#if defined(__i386__) || defined(__x86_64__)
+  __asm__ __volatile__("pause");
+#elif defined(__aarch64__)
+  __asm__ __volatile__("yield");
+#else
+  // Fallback for other architectures
+#endif
 }
 #elif LZHAM_PLATFORM_X360
 #define lzham_yield_processor() \

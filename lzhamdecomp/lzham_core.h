@@ -36,7 +36,7 @@
    #define LZHAM_FORCE_INLINE __forceinline
    #define LZHAM_NOTE_UNUSED(x) (void)x
 
-#elif defined(WIN32) && !defined(LZHAM_ANSI_CPLUSPLUS)
+#elif defined(_WIN32) && !defined(LZHAM_ANSI_CPLUSPLUS)
    // --- Windows: MSVC or MinGW, x86 or x64, Win32 API's for threading and Win32 Interlocked API's or GCC built-ins for atomic ops.
    #ifdef NDEBUG
       // Ensure checked iterators are disabled.

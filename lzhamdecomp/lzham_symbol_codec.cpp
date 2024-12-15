@@ -3,7 +3,7 @@
 #include "lzham_core.h"
 #include "lzham_symbol_codec.h"
 #include "lzham_huffman_codes.h"
-
+#include <cstdint>
 // Was 16 in previous versions.
 #define LZHAM_DEFAULT_MAX_UPDATE_INTERVAL 64
 

@@ -57,14 +57,14 @@ bool lzham_is_debugger_present(void)
 #endif
 }
 
-void lzham_debug_break(void)
-{
+void lzham_debug_break(void) {
 #if LZHAM_USE_WIN32_API
-   DebugBreak();
-#elif (TARGET_OS_MAC == 1) && (TARGET_IPHONE_SIMULATOR == 0) && (TARGET_OS_IPHONE == 0)
-   __asm {int 3}
+  DebugBreak();
+#elif (TARGET_OS_MAC == 1) && (TARGET_IPHONE_SIMULATOR == 0) &&                \
+    (TARGET_OS_IPHONE == 0)
+  __builtin_trap();
 #else
-   assert(0);
+  assert(0);
 #endif
 }
 

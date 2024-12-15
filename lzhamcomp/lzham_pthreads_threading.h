@@ -72,7 +72,7 @@ namespace lzham
          LZHAM_ASSERT(releaseCount >= 1);
 
          int status = 0;
-#ifdef WIN32
+#ifdef _WIN32
          if (1 == releaseCount)
             status = sem_post(m_pSem);
          else
@@ -139,7 +139,7 @@ namespace lzham
          LZHAM_ASSERT(releaseCount >= 1);
 
          int status = 0;
-#ifdef WIN32
+#ifdef _WIN32
          if (1 == releaseCount)
             status = sem_post(&m_sem);
          else
@@ -497,7 +497,7 @@ namespace lzham
 
    inline void lzham_sleep(unsigned int milliseconds)
    {
-#ifdef WIN32
+#ifdef _WIN32
       struct timespec interval;
       interval.tv_sec = milliseconds / 1000;
       interval.tv_nsec = (milliseconds % 1000) * 1000000L;

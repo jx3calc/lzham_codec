@@ -1,6 +1,7 @@
 // File: lzham_huffman_codes.h
 // LZHAM is in the Public Domain. Please see the Public Domain declaration at the end of include/lzham.h
 #pragma once
+#include <cstdint>
 
 namespace lzham
 {

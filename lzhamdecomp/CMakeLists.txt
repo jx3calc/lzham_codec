@@ -12,16 +12,16 @@ endif( NOT CMAKE_BUILD_TYPE )
 message( ${PROJECT_NAME} " build type: " ${CMAKE_BUILD_TYPE} )
 
 if (BUILD_X64)
-	message("Building 64-bit")
+    message("Building 64-bit")
 else()
-	message("Building 32-bit")
+    message("Building 32-bit")
 endif(BUILD_X64)
 
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Wall -Wextra")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g ")
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g ")
 
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra -O3 -fomit-frame-pointer -fexpensive-optimizations")
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -Wall -Wextra")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -O3 -fomit-frame-pointer -fexpensive-optimizations")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} ")
 
 set(SRC_LIST 
     ../include/lzham_dynamic_lib.h
@@ -63,7 +63,7 @@ set(SRC_LIST
 set(GCC_COMPILE_FLAGS "-fno-strict-aliasing -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64")
 
 if (NOT BUILD_X64)
-	set(GCC_COMPILE_FLAGS "${GCC_COMPILE_FLAGS} -m32")
+    set(GCC_COMPILE_FLAGS "${GCC_COMPILE_FLAGS} -m32")
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINK_FLAGS}")
@@ -77,10 +77,18 @@ set(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} ${GCC_COMPILE_FLAGS} -D
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${GCC_COMPILE_FLAGS} -D_DEBUG")
 
 include_directories(
-	${PROJECT_SOURCE_DIR}/../lzhamdecomp 
-	${PROJECT_SOURCE_DIR}/../include)
+    ${PROJECT_SOURCE_DIR}/../lzhamdecomp 
+    ${PROJECT_SOURCE_DIR}/../include)
 
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin_linux)
+# 设置输出目录
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
-add_library(${PROJECT_NAME} ${SRC_LIST})
-install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION lib${LIB_SUFFIX} ARCHIVE DESTINATION lib${LIB_SUFFIX} RUNTIME DESTINATION bin)
+# 添加共享库
+add_library(${PROJECT_NAME} STATIC ${SRC_LIST})
+# 安装目标
+install(TARGETS ${PROJECT_NAME} 
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib)

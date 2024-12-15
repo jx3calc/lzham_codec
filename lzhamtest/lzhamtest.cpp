@@ -34,7 +34,7 @@
    #include <xtl.h>
    #include <xbdm.h>
    #define LZHAM_USE_LZHAM_DLL 1
-#elif defined(WIN32)
+#elif defined(_WIN32)
    #define WIN32_LEAN_AND_MEAN
    #include <windows.h>
    #define LZHAM_USE_LZHAM_DLL 1
@@ -64,7 +64,7 @@
    #define _ftelli64 ftello64
 #endif
 
-#ifdef WIN32
+#ifdef _WIN32
    #define QUAD_INT_FMT "%I64u"
 #else
    #define QUAD_INT_FMT "%llu"
@@ -977,7 +977,7 @@ static bool compare_files(const char *pFilename1, const char* pFilename2)
 
 typedef std::vector< std::string > string_array;
 
-#if defined(WIN32) || defined(_XBOX)
+#if defined(_WIN32) || defined(_XBOX)
 static bool find_files(std::string pathname, const std::string &filename, string_array &files, bool recursive, int level = 0)
 {
    if (!pathname.empty())
@@ -1175,7 +1175,7 @@ static bool test_recursive(ilzham &lzham_dll, const char *pPath, comp_options op
    uint64 total_source_size = 0;
    uint64 total_comp_size = 0;
 
-#ifdef WIN32
+#ifdef _WIN32
    MEMORYSTATUS initial_mem_status;
    GlobalMemoryStatus(&initial_mem_status);
 #endif
@@ -1325,7 +1325,7 @@ static bool test_recursive(ilzham &lzham_dll, const char *pPath, comp_options op
 			pStats->push_back(stats);
 		}
 
-#ifdef WIN32
+#ifdef _WIN32
       MEMORYSTATUS mem_status;
       GlobalMemoryStatus(&mem_status);
 
@@ -1707,7 +1707,7 @@ int main(int argc, char *argv[])
 
 #ifdef _XBOX
    num_helper_threads = 5;
-#elif defined(WIN32)
+#elif defined(_WIN32)
    SYSTEM_INFO g_system_info;
    GetSystemInfo(&g_system_info);
    if (g_system_info.dwNumberOfProcessors > 1)

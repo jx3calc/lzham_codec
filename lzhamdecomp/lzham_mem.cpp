@@ -103,7 +103,7 @@ namespace lzham
       else
       {
          void* p_final_block = p;
-#ifdef WIN32
+#ifdef _WIN32
          p_new = _expand(p, size);
 #else
 

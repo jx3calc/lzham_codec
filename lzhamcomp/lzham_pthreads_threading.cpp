@@ -6,7 +6,7 @@
 #include "lzham_pthreads_threading.h"
 #include "lzham_timer.h"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <process.h>
 #endif
 
@@ -16,7 +16,7 @@
 
 #if LZHAM_USE_PTHREADS_API
 
-#ifdef WIN32
+#ifdef _WIN32
 #pragma comment(lib, "../ext/libpthread/lib/pthreadVC2.lib")
 #endif
 
