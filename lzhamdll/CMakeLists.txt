@@ -55,7 +55,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 
 add_library(${PROJECT_NAME} ${SRC_LIST})
-# target_link_libraries(${PROJECT_NAME} lzhamcomp)
+target_link_libraries(${PROJECT_NAME} lzhamcomp)
 install(
     TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
